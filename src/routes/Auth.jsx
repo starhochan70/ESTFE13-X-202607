@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Box, Typography, TextField, Button, Divider } from "@mui/material";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { authService } from "../firebase";
 
 function Auth() {
@@ -37,6 +37,16 @@ function Auth() {
         });
     } else {
       //로그인
+      signInWithEmailAndPassword(auth, form.email, form.password)
+        .then(userCredential => {
+          // Signed in
+          const user = userCredential.user;
+          // ...
+        })
+        .catch(error => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+        });
     }
   };
 
